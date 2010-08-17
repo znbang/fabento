@@ -1,0 +1,11 @@
+# You can specialize this file for each language.
+# For exemple, for french create a messages.fr file
+#
+
+secure.username=帳號
+secure.password=密碼
+secure.signin=登入
+secure.remember=保持登入狀態
+secure.error=帳號或密碼不正確
+order.outdated=已經超過訂餐時間。
+order.success=訂餐成功。

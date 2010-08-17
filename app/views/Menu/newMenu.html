@@ -1,0 +1,35 @@
+#{extends 'layout.html' /}
+#{set title:'新增菜單' /}
+
+<script type="text/javascript">
+$(function() {
+  $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+
+<h2>新增菜單</h2>
+
+<form method="post" action="@{createMenu}">
+<p>
+  <div>日期(yyyy-MM-dd)</div>
+  <div><input type="text" name="date" id="datepicker" value="${today}"></div>
+</p>
+<p>
+  <div>餐別</div>
+  <div>
+    <select name="menuType">
+      <option value="lunch">午餐</option>
+      <option value="dinner">晚餐</option>
+    </select>
+  </div>
+</p>
+<p>
+  <div>備註</div>
+  <div>
+    <textarea rows="4" cols="40" name="comment"></textarea>
+  </div>
+</p>
+<p>
+  <div><input type="submit" value="新增"></div>
+</p>
+</form>

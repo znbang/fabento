@@ -1,0 +1,30 @@
+#{extends 'layout.html' /}
+#{set title:'管理者' /}
+
+<h2>管理者</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>帳號</th>
+      <th>姓名</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    #{list admins, as:'admin'}
+    <tr>
+      <td>${admin.userName}</td>
+      <td>${admin.displayName}</td>
+      <td><a onclick="return confirm('確定要刪除${admin.userName}？')" href="@{deleteAdmin(admin.userName)}">刪除</a></td>
+    </tr>
+    #{/list}
+  </tbody>
+</table>
+
+<form action="@{addAdmin}">
+<p>
+  <div>新增管理者請輸入帳號：</div>
+  <div><input type="text" name="userName"><input type="submit" value="新增"></div> 
+</p>
+</form>

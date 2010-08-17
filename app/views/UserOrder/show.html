@@ -1,0 +1,33 @@
+#{extends 'layout.html' /}
+#{set title:'訂餐紀錄' /}
+
+<h2>${year}年${month}月訂餐紀錄</h2>
+<p style="color: blue">上個月26日至本月25日，不含加班晚餐。</p>
+<table>
+<tr>
+  <th align="left">日期</th>
+  <th align="left">廠商</th>
+  <th align="left">餐點名稱</th>
+  <th align="right">價格</th>
+  <th align="right">數量</th>
+  <th align="right">合計</th>
+</tr>
+#{list orders, as:'order'}
+<tr>
+  <td>${order.createdAt}</td>
+  <td>${order.providerName}</td>
+  <td>${order.productName}</td>
+  <td align="right">$${order.productPrice}</td>
+  <td align="right">${order.quantity}</td>
+  <td align="right">$${order.subtotal}</td>
+</tr>
+#{/list}
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td align="right">總計</td>
+  <td align="right">${totalQuantity}</td>
+  <td align="right">$${totalPrice}</td>
+</tr>
+</table>

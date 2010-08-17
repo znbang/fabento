@@ -1,0 +1,25 @@
+#{extends 'layout.html' /}
+#{set title:'代訂便當' /}
+
+<h2>選擇代訂者</h2>
+<a href="@{importUsers}">匯入新帳號</a>
+<form action=@{filterUser}>
+  <p>
+    <div>搜尋帳號和姓名</div>
+    <div><input type="text" name="filter" value="${filter}"></div>
+  </p>
+</form>
+<table>
+  <tr>
+    <th>帳號</th>
+    <th>姓名</th>
+    <th>代訂</th>
+  </tr>
+  #{list users, as:'user'}
+  <tr>
+    <td>${user.userName}</td>
+    <td>${user.displayName}</td>
+    <td><a href="@{show(user.id)}">代訂</a></td>
+  </tr>
+  #{/list}
+</table>

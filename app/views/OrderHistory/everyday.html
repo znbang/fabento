@@ -1,0 +1,12 @@
+#{extends 'layout.html' /}
+#{set title:'每日統計' /}
+
+<h2>每日統計</h2>
+
+#{list menus, as:'menu'}
+<div><a href="@{showMenuOrder(menu.id)}">${menu.name}</a></div>
+#{/list}
+
+<p>
+<a href="@{everyday}">第一頁</a> | <a href="@{everyday(prevPage)}">上一頁</a> | <a href="@{everyday(nextPage)}">下一頁</a>
+</p>

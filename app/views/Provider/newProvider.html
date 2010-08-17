@@ -1,0 +1,22 @@
+#{extends 'layout.html' /}
+#{set title:'新增廠商' /}
+
+<h2>新增廠商</h2>
+
+<form method="post" action="@{createProvider}">
+<p>
+  <div>廠商名稱</div>
+  <div><input type="text" name="name"></div>
+</p>
+<p>
+  <div>電話號碼</div>
+  <div><input type="text" name="phone"></div>
+</p>
+<p>
+  <div>地址</div>
+  <div><input type="text" name="address"></div>
+</p>
+<p>
+  <div><input type="submit" value="新增">&nbsp;<a href="@{index}">取消</a></div>
+</p>
+</form>

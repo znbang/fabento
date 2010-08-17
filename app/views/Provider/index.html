@@ -1,0 +1,31 @@
+#{extends 'layout.html' /}
+#{set title:'廠商' /}
+
+<h2>廠商管理</h2>
+
+<p><a href="@{newProvider}">新增廠商</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>廠商名稱</th>
+      <th>電話號碼</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    #{list providers, as:'provider'}
+    <tr>
+      <td>${provider.name}</td>
+      <td>${provider.phone}</td>
+      <td><a href="@{editProvider(provider.id)}">修改</a></td>
+      <td><a onclick="return confirm('確定要刪除${provider.name}？');" href="@{deleteProvider(provider.id)}">刪除</a></td>
+    </tr>
+    #{/list}
+  </tbody>
+</table>
+
+<p>
+<a href="@{index}">第一頁</a> | <a href="@{index(prevPage)}">上一頁</a> | <a href="@{index(nextPage)}">下一頁</a>
+</p>

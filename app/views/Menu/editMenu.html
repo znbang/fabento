@@ -1,0 +1,45 @@
+#{extends 'layout.html' /}
+#{set title:'修改菜單' /}
+
+<h2>修改菜單: ${menu.name}</h2>
+
+<form method="post" action="@{updateMenu(menu.id)}">
+<p>
+  <div>備註</div>
+  <div>
+    <textarea rows="4" cols="40" name="comment">${menu.comment}</textarea>
+  </div>
+</p>
+<p>
+  <table>
+    <tr>
+      <th>刪除</th>
+      <th align="left">廠商</th>
+      <th align="left">餐點名稱</th>
+      <th align="left">價格</th>
+    </tr>
+    #{list menu.menuItems, as:'item'}
+    <tr>
+      <td><input type="checkbox" name="deletes" value="${item.id}"></td>
+      <td>${item.providerName}</td>
+      <td><input type="text" name="productNames" value="${item.productName}"><input type="hidden" name="itemIds" value="${item.id}"></td>
+      <td><input type="text" size="4" name="productPrices" value="${item.productPrice}"></td>
+    </tr>
+    #{/list}
+  </table>
+</p>
+<p>
+  <div>新增餐點</div>
+  <div>
+    <select name="newProvider">
+      <option value="">請選擇...</option>
+      #{list providers, as:'provider'}
+      <option value="${provider.id}">${provider.name}</option>
+      #{/list}
+    </select>
+  </div>
+</p>
+<p>
+  <div><input type="submit" value="儲存"> <a href="@{index}">取消</a></div>
+</p>
+</form>

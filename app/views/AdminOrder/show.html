@@ -1,0 +1,18 @@
+#{extends 'layout.html' /}
+#{set title:'代訂便當' /}
+
+<h2>代訂給：${user.displayName}</h2>
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+    #{if lunchOrderMenu}
+      #{UserOrderMenu lunchOrderMenu, userId:userId /}
+    #{/if}
+    </td>
+    <td width="50%" valign="top">
+    #{if dinnerOrderMenu}
+      #{UserOrderMenu dinnerOrderMenu, userId:userId /}
+    #{/if}
+    </td>
+  </tr>
+</table>

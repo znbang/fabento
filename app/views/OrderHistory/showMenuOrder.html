@@ -1,0 +1,57 @@
+#{extends 'layout.html' /}
+#{set title:'每日統計' /}
+
+<h2>${summary.menuName}</h2>
+
+<table cellspacing="0" cellpadding="4" rules="rows" frame="hsides">
+<thead>
+<tr>
+  <th align="left">廠商</th>
+  <th align="left">餐點名稱</th>
+  <th align="right">價格</th>
+  <th align="right">數量</th>
+  <th align="left">已付款</th>
+  <th align="left">未付款</th>
+</tr>
+</thead>
+<tbody>
+#{list summary.summaries, as:'provider'}
+  #{list provider.items, as:'product'}
+<tr valign="top" wicket:id="products">
+  <td>${product.provider}</td>
+  <td>${product.product}</td>
+  <td align="right">$${product.price}</td>
+  <td align="right">${product.quantity}</td>
+  <td>
+    #{list product.paidUsers, as:'user'}
+    <div><a href="@{makeOrderUnpaid(user.orderId)}">${user.displayName}(${user.quantity})</a></div>
+    #{/list}
+  </td>
+  <td>
+    #{list product.unpaidUsers, as:'user'}
+    <div><a href="@{makeOrderPaid(user.orderId)}">${user.displayName}(${user.quantity})</a></div>
+    #{/list}
+  </td>
+</tr>
+  #{/list}
+<tr>
+  <td></td>
+  <td>合計</td>
+  <td align="right">$${provider.subtotal}</td>
+  <td align="right">${provider.quantity}</td>
+  <td></td>
+  <td></td>
+</tr>
+#{/list}
+</tbody>
+<tbody>
+<tr>
+<td></td>
+<td>總計</td>
+<td align="right">$${summary.totalPrice}</td>
+<td align="right">${summary.totalQuantity}</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>

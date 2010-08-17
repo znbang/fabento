@@ -1,0 +1,37 @@
+#{verbatim}
+<h2>${_arg.name}</h2>
+<div>${_arg.comment}</div>
+<h2>${_arg.totalQuantity}個便當，共計${_arg.totalPrice}元</h2>
+
+<form method="post" action="@{order(_userId)}">
+<input type="hidden" name="menuId" value="${_arg.menuId}">
+<table>
+<tr>
+  <th align="left">廠商</th>
+  <th align="left">餐點名稱</th>
+  <th style="padding-right: 1em; text-align: right;">價格</th>
+  <th align="left">數量</th>
+</tr>
+#{list _arg.items, as:'item'}
+<tr>
+  <td style="padding-right: 1em">${item.provider}</td>
+  <td style="padding-right: 1em">${item.product}</td>
+  <td style="padding-right: 1em; text-align: right;">$${item.price}</td>
+  <td>
+    <input type="hidden" name="items" value="${item.menuItemId}">
+    <select name="quantities">
+      %{for (i in 0..10) {}%
+      <option ${i == item.quantity ? 'selected=\"selected\"' : ''}>${i}</option>
+      %{}}%
+    </select>
+  </td>
+</tr>
+#{/list}
+<tr>
+  <td colspan="4" align="right">
+    <input type="submit" value="確定">
+  </td>
+</tr>
+</table>
+</form>
+#{/verbatim}

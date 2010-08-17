@@ -1,0 +1,27 @@
+#{extends 'layout.html' /}
+#{set title:'未來菜單' /}
+
+<h2>${menu.name}</h2>
+
+<p>
+  <div>備註</div>
+  <div>
+    <textarea rows="4" cols="40" name="comment" readonly="readonly">${menu.comment}</textarea>
+  </div>
+</p>
+<p>
+  <table>
+    <tr>
+      <th align="left">廠商</th>
+      <th align="left">餐點名稱</th>
+      <th align="left">價格</th>
+    </tr>
+    #{list menu.menuItems, as:'item'}
+    <tr>
+      <td>${item.providerName}</td>
+      <td>${item.productName}</td>
+      <td align="right">$${item.productPrice}</td>
+    </tr>
+    #{/list}
+  </table>
+</p>
