@@ -5,7 +5,7 @@
 
 <form method="post" action="@{order(_userId)}">
 <input type="hidden" name="menuId" value="${_arg.menuId}">
-<table>
+<table cellspacing="0">
 <tr>
   <th align="left">廠商</th>
   <th align="left">餐點名稱</th>
@@ -13,7 +13,12 @@
   <th align="left">數量</th>
 </tr>
 #{list _arg.items, as:'item'}
+#{if item.quantity > 0}
+<tr style="background-color: #eee">
+#{/if}
+#{else}
 <tr>
+#{/else}
   <td style="padding-right: 1em">${item.provider}</td>
   <td style="padding-right: 1em">${item.product}</td>
   <td style="padding-right: 1em; text-align: right;">$${item.price}</td>
