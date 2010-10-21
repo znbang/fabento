@@ -3,7 +3,7 @@
 <div>${_arg.comment}</div>
 <h2>${_arg.totalQuantity}個便當，共計${_arg.totalPrice}元</h2>
 
-<form method="post" action="@{order(_userId)}">
+<form method="post" action="@{order(_userId)}" onsubmit="$(':submit').attr('disabled', 'true');return true;">
 <input type="hidden" name="menuId" value="${_arg.menuId}">
 <table cellspacing="0">
 <tr>
@@ -34,7 +34,7 @@
 #{/list}
 <tr>
   <td colspan="4" align="right">
-    <input type="submit" value="確定" onclick="this.disabled=true;this.form.submit();">
+    <input type="submit" value="確定">
   </td>
 </tr>
 </table>
