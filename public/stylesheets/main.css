@@ -8,6 +8,10 @@ body, div {
   font-size: 9pt;
 }
 
+@media print {
+   body, div, td, th {font-size: 12pt; background: white;}
+}
+
 table {
   font-size: 9pt;
 }
