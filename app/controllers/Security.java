@@ -18,7 +18,7 @@ public class Security extends Secure.Security {
     static boolean check(String profile) {
    		String role = session.get("role");
    		if (null == role) {
-   			User u = User.find("userName", session.get("username")).first();
+   			User u = User.find("userName", session.get("username").toLowerCase()).first();
         	session.put("userName", u.userName);
         	session.put("displayName", u.displayName);
    			session.put("role", u.role);

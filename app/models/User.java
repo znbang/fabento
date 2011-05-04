@@ -19,7 +19,7 @@ public class User extends Model {
 	public String role;
 
 	public User(String userName, String displayName, String role) {
-		this.userName = userName;
+		this.userName = userName.toLowerCase();
 		this.displayName = displayName;
 		this.role = role;
 	}

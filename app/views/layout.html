@@ -45,11 +45,17 @@
 </ul>
 </div><!-- end of menubar -->
 
-#{if flash.error || flash.success}
+#{if flash.success}
 <div id="feedback">
-  &{flash.error}&{flash.success}
+  &{flash.success}
 </div><!--  end of feedback -->
 #{/if}
+#{if flash.error}
+<div id="feedback">
+  &{flash.error}
+</div><!--  end of feedback -->
+#{/if}
+
 
 <div id="content">
   #{doLayout /}

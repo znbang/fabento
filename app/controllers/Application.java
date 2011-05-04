@@ -10,7 +10,7 @@ public class Application extends Controller {
 	}
 
 	static User getCurrentUser() {
-		User user = User.find("userName", session.get("username")).first();
+		User user = User.find("userName", session.get("username").toLowerCase()).first();
 		if (null == user) {
 			try {
 				Secure.login();
