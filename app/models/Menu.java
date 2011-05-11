@@ -52,6 +52,7 @@ public class Menu extends Model {
 			item.product = product;
 			item.productName = product.name;
 			item.productPrice = product.price;
+			item.save();
 			menuItems.add(item);
 		}
 	}
