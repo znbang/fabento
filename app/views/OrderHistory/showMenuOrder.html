@@ -24,12 +24,12 @@
   <td align="right">${product.quantity}</td>
   <td>
     #{list product.paidUsers, as:'user'}
-    <div><a href="@{makeOrderUnpaid(user.orderId)}">${user.displayName}(${user.quantity})</a></div>
+    <div><a href="@{makeOrderUnpaid(user.orderId)}">${user.displayName}#{if user.userName == 'terry.tsai'}[terry]#{/if}(${user.quantity})</a></div>
     #{/list}
   </td>
   <td>
     #{list product.unpaidUsers, as:'user'}
-    <div><a href="@{makeOrderPaid(user.orderId)}">${user.displayName}(${user.quantity})</a></div>
+    <div><a href="@{makeOrderPaid(user.orderId)}">${user.displayName}#{if user.userName == 'terry.tsai'}[terry]#{/if}(${user.quantity})</a></div>
     #{/list}
   </td>
 </tr>
