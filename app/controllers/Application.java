@@ -10,11 +10,11 @@ public class Application extends Controller {
 	}
 
 	static User getCurrentUser() {
-		User user = User.find("userName", session.get("username").toLowerCase()).first();
+		User user = User.findByUserName(session.get("username").toLowerCase());
 		if (null == user) {
 			try {
 				Secure.login();
-			} catch (Throwable e) {
+			} catch (Throwable ignored) {
 			}
 		}
 		return user;

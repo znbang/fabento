@@ -3,17 +3,16 @@ package service;
 import helper.MealType;
 import helper.MonthlyOrderSummary;
 import helper.OrderMenu;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import models.Menu;
 import models.MenuItem;
 import models.Order;
 import models.User;
-
 import org.joda.time.DateTime;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class OrderService {
 	public static OrderMenu getLunchOrderMenu(User user) {
@@ -30,45 +29,26 @@ public class OrderService {
 		return null == menu ? null : new OrderMenu(menu, Order.find("user.id=? AND menu.id=?", user.id, menu.id).<Order>fetch());
 	}
 
-	public static void order(User user, Long[] items, Integer[] quantities) {
-		if (null == user || items.length != quantities.length) {
+	public static void order(User user, Map<Long, Integer> orders) {
+		if (null == user || orders == null || orders.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 
-		int length = items.length;
-
-		for (int i = 0; i < length; ++i) {
-			final long menuItemId = null == items[i] ? -1 : items[i];
-			final int quantity = null == quantities[i] ? -1 : quantities[i];
+		for (Map.Entry<Long, Integer> item : orders.entrySet()) {
+			final long menuItemId = null == item.getKey() ? -1 : item.getKey();
+			final int quantity = null == item.getValue() ? -1 : item.getValue();
 
 			if (quantity <= 0) {
 				Order.delete("user.id=? AND menuItem.id=?", user.id, menuItemId);
 			} else if (quantity > 0 && quantity <= 10) {
-				DateTime now = new DateTime();
 				Order o = Order.find("user.id=? AND menuItem.id=?", user.id, menuItemId).first();
 
 				if (null == o) {
-					MenuItem menuItem = MenuItem.findById(menuItemId);
-
-					o = new Order();
-					o.createdAt = now.toDate();
-					o.paid = false;
-					o.user = user;
-					o.menu = menuItem.menu;
-					o.mealType = menuItem.menu.mealType;
-					o.menuItem = menuItem;
-
-					// orders after 25th of the month belongs to next month
-					if (now.dayOfMonth().get() > 25) {
-						DateTime next = now.plusMonths(1);
-						o.yearMonth = next.getYear() * 100 + next.getMonthOfYear();
-					} else {
-						o.yearMonth = now.getYear() * 100 + now.getMonthOfYear();
-					}
+					o = new Order(user, MenuItem.<MenuItem>findById(menuItemId));
 				}
 
 				o.quantity = quantity;
-				o.updatedAt = now.toDate();
+				o.updatedAt = new Date();
 				o.save();
 			}
 		}

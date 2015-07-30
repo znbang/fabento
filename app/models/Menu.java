@@ -1,23 +1,13 @@
 package models;
 
 import helper.MealType;
+import org.joda.time.DateTime;
 
+import javax.persistence.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.Index;
-import org.joda.time.DateTime;
 
 
 @Entity
@@ -25,14 +15,11 @@ import org.joda.time.DateTime;
 public class Menu extends Model {
 	@Column(unique=true)
 	public String name;
-
 	public String comment;
 
 	@Enumerated(EnumType.STRING)
 	public MealType mealType;
-
 	public Date createdAt;
-
 	public Date updatedAt;
 
 	@OneToMany(mappedBy="menu", cascade=CascadeType.ALL)
@@ -59,12 +46,19 @@ public class Menu extends Model {
 
 	@Transient
 	public boolean isOutdated() {
-		if (name.indexOf("午餐") > 0 && new DateTime().withTime(10, 5, 0, 0).isBeforeNow()) {
-			return true;
-		} else if (name.indexOf("晚餐") > 0 && new DateTime().withTime(17, 5, 0, 0).isBeforeNow()) {
+		Date date;
+		try {
+			date = new SimpleDateFormat("yyyy-MM-dd").parse(name);
+		} catch (ParseException e) {
 			return true;
 		}
-		return false;
+		DateTime validTime = new DateTime(date);
+		if (mealType == MealType.LUNCH) {
+			return validTime.withTime(10, 5, 0, 0).isBeforeNow();
+		} else if (mealType == MealType.DINNER) {
+			return validTime.withTime(17, 5, 0, 0).isBeforeNow();
+		}
+		return true;
 	}
 
 	@Transient

@@ -3,6 +3,7 @@ package controllers;
 import helper.OrderMenu;
 
 import java.util.List;
+import java.util.Map;
 
 import models.Menu;
 import models.Order;
@@ -20,12 +21,12 @@ public class UserOrder extends Application {
 		render(lunchOrderMenu, dinnerOrderMenu);
 	}
 
-	public static void order(@Required Long menuId, Long[] items, Integer[] quantities) {
+	public static void order(@Required Long menuId, Map<Long, Integer> orders) {
 		if (Menu.<Menu>findById(menuId).isOutdated()) {
 			flash.error("order.outdated");
 		} else {
 			User user = getCurrentUser();
-			OrderService.order(user, items, quantities);
+			OrderService.order(user, orders);
 			flash.success("order.success");
 		}
 		index();

@@ -23,8 +23,7 @@
   <td style="padding-right: 1em">${item.product}</td>
   <td style="padding-right: 1em; text-align: right;">$${item.price}</td>
   <td>
-    <input type="hidden" name="items" value="${item.menuItemId}">
-    <select name="quantities">
+    <select name="orders[${item.menuItemId}]">
       %{for (i in 0..10) {}%
       <option ${i == item.quantity ? 'selected=\"selected\"' : ''}>${i}</option>
       %{}}%

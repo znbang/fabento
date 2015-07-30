@@ -17,11 +17,13 @@ public class User extends Model {
 	public String userName;
 	public String displayName;
 	public String role;
+	public Integer enabled;
 
 	public User(String userName, String displayName, String role) {
 		this.userName = userName.toLowerCase();
 		this.displayName = displayName;
 		this.role = role;
+		this.enabled = 1;
 	}
 
 	public boolean isSignedIn() {
@@ -42,12 +44,16 @@ public class User extends Model {
 
 	@Transient
 	public static List<User> getAdmins() {
-		return find("role='admin' ORDER BY userName").fetch();
+		return find("enabled=1 AND role='admin' ORDER BY userName").fetch();
 	}
 
 	@Transient
 	public static List<User> getUsers(String filter) {
 		String myFilter = "%" + filter + "%";
-		return null == filter ? User.find("ORDER BY userName").<User>fetch() : User.find("userName LIKE ? OR displayName LIKE ?", myFilter, myFilter).<User>fetch();
+		return null == filter ? User.find("enabled=1 ORDER BY userName").<User>fetch() : User.find("enabled=1 AND (userName LIKE ? OR displayName LIKE ?)", myFilter, myFilter).<User>fetch();
+	}
+
+	public static User findByUserName(String userName) {
+		return find("userName=? AND enabled=1", userName).first();
 	}
 }

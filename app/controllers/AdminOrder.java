@@ -3,6 +3,7 @@ package controllers;
 import helper.OrderMenu;
 
 import java.util.List;
+import java.util.Map;
 
 import models.Menu;
 import models.User;
@@ -36,9 +37,9 @@ public class AdminOrder extends Application {
 		render(user, userId, lunchOrderMenu, dinnerOrderMenu);
 	}
 
-	public static void order(@Required Long userId, @Required Long menuId, Long[] items, Integer[] quantities) {
+	public static void order(@Required Long userId, @Required Long menuId, Map<Long, Integer> orders) {
 		User user = User.findById(userId);
-		OrderService.order(user, items, quantities);
+		OrderService.order(user, orders);
 		flash.success("order.success");
 		show(userId);
 	}

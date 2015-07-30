@@ -17,19 +17,19 @@
 <tbody>
 #{list summary.summaries, as:'provider'}
   #{list provider.items, as:'product'}
-<tr valign="top" wicket:id="products">
+<tr valign="top">
   <td>${product.provider}</td>
   <td>${product.product}</td>
   <td align="right">$${product.price}</td>
   <td align="right">${product.quantity}</td>
   <td>
     #{list product.paidUsers, as:'user'}
-    <div><a href="@{makeOrderUnpaid(user.orderId)}">${user.displayName}#{if user.userName == 'terry.tsai'}[terry]#{/if}(${user.quantity})</a></div>
+    <div><a href="@{makeOrderUnpaid(user.orderId)}">${user.displayName}#{if user.userName == 'terry.tsai'}(terry)#{/if}(${user.quantity})</a></div>
     #{/list}
   </td>
   <td>
     #{list product.unpaidUsers, as:'user'}
-    <div><a href="@{makeOrderPaid(user.orderId)}">${user.displayName}#{if user.userName == 'terry.tsai'}[terry]#{/if}(${user.quantity})</a></div>
+    <div><a href="@{makeOrderPaid(user.orderId)}">${user.displayName}#{if user.userName == 'terry.tsai'}(terry)#{/if}(${user.quantity})</a></div>
     #{/list}
   </td>
 </tr>

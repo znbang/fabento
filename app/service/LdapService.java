@@ -72,7 +72,7 @@ public final class LdapService {
 			ctls.setSearchScope(SearchControls.SUBTREE_SCOPE);
 			String filter = String.format("(&(objectCategory=Person)(objectClass=user)(sAMAccountName=%s))", userName);
 			NamingEnumeration<SearchResult> userEnum = ctx.search("", filter, ctls);
-			while (userEnum.hasMoreElements()) {
+			if (userEnum.hasMoreElements()) {
 				SearchResult userResult = userEnum.nextElement();
 				user = new User(
 					(String)userResult.getAttributes().get("sAMAccountName").get(),
@@ -84,7 +84,6 @@ public final class LdapService {
 				if (left > 0 && right > 0) {
 					user.displayName = user.displayName.substring(left + 1, right);
 				}
-				break;
 			}
 			ctx.close();
 		} catch (NamingException e) {

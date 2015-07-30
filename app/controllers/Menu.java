@@ -16,9 +16,7 @@ import play.mvc.With;
 @Check(User.ROLE_ADMIN)
 public class Menu extends Application {
 	private static final int ROWS_PER_PAGE = 20;
-
 	private static final String LUNCH = "午餐";
-
 	private static final String DINNER = "加班晚餐";
 
 	public static void index(Integer page) {

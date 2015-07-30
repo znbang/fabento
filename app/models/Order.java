@@ -14,28 +14,22 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.ForeignKey;
+import org.joda.time.DateTime;
 
 
 @Entity
 @Table(name="orders")
 public class Order extends Model {
 	public String providerName;
-
 	public String productName;
-
 	public Integer productPrice;
-
 	public Integer quantity;
-
 	public Boolean paid;
-
 	public Integer yearMonth;
 
 	@Enumerated(EnumType.STRING)
 	public MealType mealType;
-
 	public Date createdAt;
-
 	public Date updatedAt;
 
 	@ManyToOne
@@ -53,12 +47,29 @@ public class Order extends Model {
 	@ForeignKey(name="fk_menu_item")
 	public MenuItem menuItem;
 
+	public Order() {
+	}
 
-	public void setMenuItem(MenuItem menuItem) {
+	public Order(User user, MenuItem menuItem) {
+		DateTime now = new DateTime();
+
+		this.createdAt = now.toDate();
+		this.paid = false;
+		this.user = user;
+		this.menu = menuItem.menu;
+		this.mealType = menuItem.menu.mealType;
 		this.menuItem = menuItem;
-		providerName = menuItem.providerName;
-		productName = menuItem.productName;
-		productPrice = menuItem.productPrice;
+		this.providerName = menuItem.providerName;
+		this.productName = menuItem.productName;
+		this.productPrice = menuItem.productPrice;
+
+		// orders after 25th of the month belongs to next month
+		if (now.dayOfMonth().get() > 25) {
+			DateTime next = now.plusMonths(1);
+			this.yearMonth = next.getYear() * 100 + next.getMonthOfYear();
+		} else {
+			this.yearMonth = now.getYear() * 100 + now.getMonthOfYear();
+		}
 	}
 
 	@Transient

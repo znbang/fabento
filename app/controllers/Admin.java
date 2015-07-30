@@ -14,7 +14,7 @@ public class Admin extends Application {
 	}
 
 	public static void addAdmin(String userName) {
-		User user = User.find("userName", userName).first();
+		User user = User.findByUserName(userName);
 		if (null != user) {
 			user.role = User.ROLE_ADMIN;
 			user.save();
@@ -23,7 +23,7 @@ public class Admin extends Application {
 	}
 
 	public static void deleteAdmin(String userName) {
-		User user = User.find("userName", userName).first();
+		User user = User.findByUserName(userName);
 		if (null != user) {
 			user.role = User.ROLE_USER;
 			user.save();
