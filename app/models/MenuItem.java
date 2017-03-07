@@ -24,12 +24,12 @@ public class MenuItem extends Model {
 	@ForeignKey(name="fk_menu")
 	public Menu menu;
 
-	@ManyToOne(optional=true)
+	@ManyToOne
 	@JoinColumn(name="provider_id")
 	@ForeignKey(name="fk_provider")
 	public Provider provider;
 
-	@ManyToOne(optional=true)
+	@ManyToOne
 	@JoinColumn(name="product_id")
 	@ForeignKey(name="fk_product")
 	public Product product;

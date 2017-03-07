@@ -52,13 +52,10 @@ public class Menu extends Model {
 		} catch (ParseException e) {
 			return true;
 		}
-		DateTime validTime = new DateTime(date);
-		if (mealType == MealType.LUNCH) {
-			return validTime.withTime(10, 5, 0, 0).isBeforeNow();
-		} else if (mealType == MealType.DINNER) {
-			return validTime.withTime(17, 5, 0, 0).isBeforeNow();
-		}
-		return true;
+		DateTime now = new DateTime();
+		DateTime begin = new DateTime(date);
+		DateTime end = mealType == MealType.DINNER ? begin.withTime(17, 5, 0, 0) : begin.withTime(10, 5, 0, 0);
+		return !(now.isAfter(begin) && now.isBefore(end));
 	}
 
 	@Transient
