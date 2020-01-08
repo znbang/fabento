@@ -7,7 +7,6 @@ import models.Menu;
 import models.MenuItem;
 import models.Order;
 import models.User;
-import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,7 +25,7 @@ public class OrderService {
 	private static OrderMenu getOrderMenu(User user, String name) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Menu menu = Menu.find("name", sdf.format(new Date()) + name).first();
-		return null == menu ? null : new OrderMenu(menu, Order.find("user.id=? AND menu.id=?", user.id, menu.id).<Order>fetch());
+		return null == menu ? null : new OrderMenu(menu, Order.find("user.id=?1 AND menu.id=?2", user.id, menu.id).fetch());
 	}
 
 	public static void order(User user, Map<Long, Integer> orders) {
@@ -39,9 +38,9 @@ public class OrderService {
 			final int quantity = null == item.getValue() ? -1 : item.getValue();
 
 			if (quantity <= 0) {
-				Order.delete("user.id=? AND menuItem.id=?", user.id, menuItemId);
+				Order.delete("user.id=?1 AND menuItem.id=?2", user.id, menuItemId);
 			} else if (quantity > 0 && quantity <= 10) {
-				Order o = Order.find("user.id=? AND menuItem.id=?", user.id, menuItemId).first();
+				Order o = Order.find("user.id=?1 AND menuItem.id=?2", user.id, menuItemId).first();
 
 				if (null == o) {
 					o = new Order(user, MenuItem.<MenuItem>findById(menuItemId));
@@ -56,7 +55,7 @@ public class OrderService {
 
 	public static MonthlyOrderSummary getOrderSummary(int yearMonth) {
 		MonthlyOrderSummary summary = new MonthlyOrderSummary();
-		List<Object[]> rows = Order.find("SELECT u.userName, u.displayName, SUM(o.quantity), SUM (o.productPrice * o.quantity) FROM Order o INNER JOIN o.user u WHERE o.mealType=? AND o.yearMonth=? GROUP BY u.userName, u.displayName ORDER BY u.userName", MealType.LUNCH, yearMonth).fetch();
+		List<Object[]> rows = Order.find("SELECT u.userName, u.displayName, SUM(o.quantity), SUM (o.productPrice * o.quantity) FROM Order o INNER JOIN o.user u WHERE o.mealType=?1 AND o.yearMonth=?2 GROUP BY u.userName, u.displayName ORDER BY u.userName", MealType.LUNCH, yearMonth).fetch();
 		for (Object[] a : rows) {
 			String userName = (String)a[0];
 			String displayName = (String)a[1];

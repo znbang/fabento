@@ -1,20 +1,11 @@
 package models;
 
 import helper.MealType;
+import org.joda.time.DateTime;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.ForeignKey;
-import org.joda.time.DateTime;
 
 
 @Entity
@@ -34,17 +25,14 @@ public class Order extends Model {
 
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	@ForeignKey(name="fk_user")
 	public User user;
 
-	@ManyToOne(optional=true)
+	@ManyToOne
 	@JoinColumn(name="menu_id")
-	@ForeignKey(name="fk_menu")
 	public Menu menu;
 
-	@ManyToOne(optional=true)
+	@ManyToOne
 	@JoinColumn(name="menu_item_id")
-	@ForeignKey(name="fk_menu_item")
 	public MenuItem menuItem;
 
 	public Order() {
@@ -79,11 +67,11 @@ public class Order extends Model {
 
 	@Transient
 	public static List<Integer> getYearMonthList(User user) {
-		return find("SELECT DISTINCT(yearMonth) FROM Order WHERE mealType='LUNCH' AND user.id=? ORDER BY yearMonth DESC", user.id).fetch();
+		return find("SELECT DISTINCT(yearMonth) FROM Order WHERE mealType='LUNCH' AND user.id=?1 ORDER BY yearMonth DESC", user.id).fetch();
 	}
 
 	@Transient
 	public static List<Order> getLunchOrders(User user, int yearMonth) {
-		return find("mealType='LUNCH' AND user.id=? AND yearMonth=? ORDER BY createdAt", user.id, yearMonth).fetch();
+		return find("mealType='LUNCH' AND user.id=?1 AND yearMonth=?2 ORDER BY createdAt", user.id, yearMonth).fetch();
 	}
 }

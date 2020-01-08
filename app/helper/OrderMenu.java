@@ -1,20 +1,17 @@
 package helper;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import models.Menu;
 import models.MenuItem;
 import models.Order;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderMenu implements Serializable {
 	private Long menuId;
-
 	private String name;
-
 	private String comment;
-
 	private List<OrderMenuItem> items;
 
 	public OrderMenu(Menu menu, List<Order> orders) {
@@ -25,7 +22,7 @@ public class OrderMenu implements Serializable {
 	}
 
 	private void initItems(Menu menu, List<Order> orders) {
-		items = new ArrayList<OrderMenuItem>();
+		items = new ArrayList<>();
 		for (MenuItem a : menu.menuItems) {
 			items.add(createOrderMenuItem(a, orders));
 		}

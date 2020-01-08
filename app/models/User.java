@@ -1,10 +1,9 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -50,10 +49,10 @@ public class User extends Model {
 	@Transient
 	public static List<User> getUsers(String filter) {
 		String myFilter = "%" + filter + "%";
-		return null == filter ? User.find("enabled=1 ORDER BY userName").<User>fetch() : User.find("enabled=1 AND (userName LIKE ? OR displayName LIKE ?)", myFilter, myFilter).<User>fetch();
+		return null == filter ? User.find("enabled=1 ORDER BY userName").<User>fetch() : User.find("enabled=1 AND (userName LIKE ?1 OR displayName LIKE ?2)", myFilter, myFilter).fetch();
 	}
 
 	public static User findByUserName(String userName) {
-		return find("userName=? AND enabled=1", userName).first();
+		return find("userName=?1 AND enabled=1", userName).first();
 	}
 }

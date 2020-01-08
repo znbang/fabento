@@ -1,28 +1,18 @@
 package models;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name="providers")
 public class Provider extends Model {
 	@Column(unique=true)
 	public String name;
-
 	public String phone;
-
 	public String address;
-
 	public Date createdAt;
-
 	public Date updatedAt;
-
 	public Integer status;
 
 	@OneToMany(mappedBy="provider", cascade=CascadeType.ALL)

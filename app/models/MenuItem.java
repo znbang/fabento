@@ -14,24 +14,19 @@ import org.hibernate.annotations.ForeignKey;
 @Table(name="menu_items")
 public class MenuItem extends Model {
 	public String providerName;
-
 	public String productName;
-
 	public Integer productPrice;
 
 	@ManyToOne
 	@JoinColumn(name="menu_id")
-	@ForeignKey(name="fk_menu")
 	public Menu menu;
 
 	@ManyToOne
 	@JoinColumn(name="provider_id")
-	@ForeignKey(name="fk_provider")
 	public Provider provider;
 
 	@ManyToOne
 	@JoinColumn(name="product_id")
-	@ForeignKey(name="fk_product")
 	public Product product;
 
 	@OneToMany(mappedBy="menuItem")

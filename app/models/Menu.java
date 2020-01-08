@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
 @Entity
 @Table(name="menus")
 public class Menu extends Model {
@@ -61,12 +60,17 @@ public class Menu extends Model {
 	@Transient
 	public static List<Menu> listPastLunchMenu(int page, int rows) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return Menu.find("name < ? ORDER BY name DESC", sdf.format(new DateTime().plusDays(1).toDate())).from(--page * rows).fetch(rows);
+		return Menu.find("name < :name ORDER BY name DESC")
+				.setParameter("name", sdf.format(new DateTime().plusDays(1).toDate()))
+				.from(--page * rows)
+				.fetch(rows);
 	}
 
 	@Transient
 	public static List<Menu> listFutureLunchMenu() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return Menu.find("name > ? ORDER BY name", sdf.format(new DateTime().plusDays(1).toDate())).fetch();
+		return Menu.find("name > :name ORDER BY name")
+				.setParameter("name", sdf.format(new DateTime().plusDays(1).toDate()))
+				.fetch();
 	}
 }

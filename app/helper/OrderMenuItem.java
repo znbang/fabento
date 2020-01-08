@@ -4,13 +4,9 @@ import java.io.Serializable;
 
 public class OrderMenuItem implements Serializable {
 	private Long menuItemId;
-
 	private String provider;
-
 	private String product;
-
 	private int price;
-
 	private int quantity;
 
 	public OrderMenuItem(Long menuItemId, String provider, String product, int price, int quantity) {
