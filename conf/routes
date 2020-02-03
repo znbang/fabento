@@ -4,12 +4,12 @@
 
 # Home page
 GET     /                                       UserOrder.index
+GET     /login                                  Authenticate.login
+POST    /auth                                   Authenticate.auth
+GET     /logout                                 Authenticate.logout
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
-
-# Import Secure routes
-*		/										module:secure
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

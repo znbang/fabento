@@ -1,22 +1,18 @@
 package controllers;
 
 import helper.OrderMenu;
-
-import java.util.List;
-import java.util.Map;
-
-import models.Menu;
 import models.User;
 import play.data.validation.Required;
 import play.mvc.With;
 import service.OrderService;
-import service.UserService;
 
-@With(Secure.class)
-@Check(User.ROLE_ADMIN)
-public class AdminOrder extends Application {
+import java.util.List;
+import java.util.Map;
+
+@With(RequireAdmin.class)
+public class AdminOrder extends Controller {
 	public static void importUsers() {
-		UserService.importUsers();
+		userService.importUsers();
 		index(null);
 	}
 

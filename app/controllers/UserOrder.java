@@ -1,10 +1,6 @@
 package controllers;
 
 import helper.OrderMenu;
-
-import java.util.List;
-import java.util.Map;
-
 import models.Menu;
 import models.Order;
 import models.User;
@@ -12,8 +8,11 @@ import play.data.validation.Required;
 import play.mvc.With;
 import service.OrderService;
 
-@With(Secure.class)
-public class UserOrder extends Application {
+import java.util.List;
+import java.util.Map;
+
+@With(RequireLogin.class)
+public class UserOrder extends Controller {
 	public static void index() {
 		User user = getCurrentUser();
 		OrderMenu lunchOrderMenu = OrderService.getLunchOrderMenu(user);

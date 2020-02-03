@@ -1,12 +1,12 @@
 package controllers;
 
-import java.util.List;
-
 import models.User;
+import models.UserRole;
 import play.mvc.With;
 
-@With(Secure.class)
-@Check(User.ROLE_ADMIN)
+import java.util.List;
+
+@With(RequireAdmin.class)
 public class Admin extends Application {
 	public static void index() {
 		List<User> admins = User.getAdmins();
@@ -16,7 +16,7 @@ public class Admin extends Application {
 	public static void addAdmin(String userName) {
 		User user = User.findByUserName(userName);
 		if (null != user) {
-			user.role = User.ROLE_ADMIN;
+			user.role = UserRole.admin;
 			user.save();
 		}
 		index();
@@ -25,7 +25,7 @@ public class Admin extends Application {
 	public static void deleteAdmin(String userName) {
 		User user = User.findByUserName(userName);
 		if (null != user) {
-			user.role = User.ROLE_USER;
+			user.role = UserRole.user;
 			user.save();
 		}
 		index();

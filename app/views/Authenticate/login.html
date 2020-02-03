@@ -1,0 +1,18 @@
+#{extends 'layout.html' /}
+#{set title:'登入' /}
+
+<p>請用網域帳號登入。</p>
+<form method="post" action="@{auth()}">
+    #{authenticityToken /}
+    <div class="row">
+        <label for="username">&{'secure.username'}</label>
+        <input type="text" name="userName" id="userName" value="${flash.userName}">
+    </div>
+    <div class="row">
+        <label for="password">&{'secure.password'}</label>
+        <input type="password" name="password" id="password" value="">
+    </div>
+    <div>
+        <input type="submit" id="signin" value="&{'secure.signin'}">
+    </div>
+</form>

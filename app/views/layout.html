@@ -15,24 +15,24 @@
 <div id="header">
   <h1 id="siteName"><a href="@{UserOrder.index}">訂便當</a></h1>
   <div id="signInPanel">
-      #{secure.check 'guest'}
-	    <a href="@{Secure.login}">登入</a>
-	  #{/secure.check}
-      #{secure.check 'user'}
-	    &{session.displayName} |
-	    <a href="@{Secure.logout}">登出</a>
-	  #{/secure.check}
+      #{ifnot currentUser}
+	    <a href="@{Authenticate.login}">登入</a>
+	  #{/ifnot}
+      #{else}
+	    &{currentUser.displayName} |
+	    <a href="@{Authenticate.logout}">登出</a>
+	  #{/else}
   </div>
 </div><!-- end of header -->
 
 <div id="menubar">
 <ul>
-  #{secure.check 'user'}
+  #{if currentUser}
   <li><a href="@{UserOrder.index}">訂餐</a></li>
   <li><a href="@{UserOrder.futureMenu}">未來菜單</a></li>
   <li><a href="@{UserOrder.history}">訂餐紀錄</a></li>
-  #{/secure.check}
-  #{secure.check 'admin'}
+  #{/if}
+  #{if currentUser?.isAdmin()}
   <li>|</li>
   <li><a href="@{AdminOrder.index}">代訂</a></li>
   <li><a href="@{Menu.newMenu}">新菜單</a></li>
@@ -41,7 +41,7 @@
   <li><a href="@{OrderHistory.index}">每月統計</a></li>
   <li><a href="@{Provider.index}">廠商</a></li>
   <li><a href="@{Admin.index}">管理者</a></li>
-  #{/secure.check}
+  #{/if}
 </ul>
 </div><!-- end of menubar -->
 

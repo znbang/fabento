@@ -1,20 +1,17 @@
 package controllers;
 
 import helper.MealType;
+import models.MenuItem;
+import models.Provider;
+import play.mvc.With;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import models.MenuItem;
-import models.Provider;
-import models.User;
-import play.mvc.With;
-
-@With(Secure.class)
-@Check(User.ROLE_ADMIN)
-public class Menu extends Application {
+@With(RequireAdmin.class)
+public class Menu extends Controller {
 	private static final int ROWS_PER_PAGE = 20;
 	private static final String LUNCH = "午餐";
 	private static final String DINNER = "加班晚餐";

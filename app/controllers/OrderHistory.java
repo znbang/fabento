@@ -2,22 +2,17 @@ package controllers;
 
 import helper.MenuOrderSummary;
 import helper.MonthlyOrderSummary;
-
-import java.util.List;
-
 import models.Menu;
 import models.Order;
-import models.User;
-
 import org.joda.time.DateTime;
-
 import play.data.validation.Required;
 import play.mvc.With;
 import service.OrderService;
 
-@With(Secure.class)
-@Check(User.ROLE_ADMIN)
-public class OrderHistory extends Application {
+import java.util.List;
+
+@With(RequireAdmin.class)
+public class OrderHistory extends Controller {
 	private static final int ROWS_PER_PAGE = 20;
 
 	public static void index() {

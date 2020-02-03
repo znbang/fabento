@@ -1,16 +1,14 @@
 package controllers;
 
-import java.util.Date;
-import java.util.List;
-
 import models.Product;
-import models.User;
 import play.data.validation.Required;
 import play.mvc.With;
 
-@With(Secure.class)
-@Check(User.ROLE_ADMIN)
-public class Provider extends Application {
+import java.util.Date;
+import java.util.List;
+
+@With(RequireAdmin.class)
+public class Provider extends Controller {
 	private static final int ROWS_PER_PAGE = 20;
 
 	public static void index(Integer page) {
