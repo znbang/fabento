@@ -1,35 +1,33 @@
 #{extends 'layout.html' /}
 #{set title:'新增菜單' /}
-
+#{set 'moreScripts'}
 <script type="text/javascript">
-$(function() {
-  $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-});
+  $(function() {
+    $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+  });
 </script>
+#{/set}
 
 <h2>新增菜單</h2>
 
 <form method="post" action="@{createMenu}">
-<p>
-  <div>日期(yyyy-MM-dd)</div>
-  <div><input type="text" name="date" id="datepicker" value="${today}"></div>
-</p>
-<p>
-  <div>餐別</div>
-  <div>
-    <select name="menuType">
+  <div class="form-group">
+    <label>日期(yyyy-MM-dd)</label>
+    <input class="form-control" type="text" name="date" id="datepicker" value="${today}">
+  </div>
+  <div class="form-group">
+    <label>餐別</label>
+    <select name="menuType" class="form-control" >
       <option value="lunch">午餐</option>
       <option value="dinner">晚餐</option>
     </select>
   </div>
-</p>
-<p>
-  <div>備註</div>
-  <div>
-    <textarea rows="4" cols="40" name="comment"></textarea>
+  <div class="form-group">
+    <label>備註</label>
+    <textarea class="form-control" rows="4" cols="40" name="comment"></textarea>
   </div>
-</p>
-<p>
-  <div><input type="submit" value="新增"></div>
-</p>
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit">新增</button>
+    <a class="btn btn-secondary" href="@{index}">取消</a>
+  </div>
 </form>

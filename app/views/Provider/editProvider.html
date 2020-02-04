@@ -4,46 +4,41 @@
 <h2>修改廠商</h2>
 
 <form method="post" action="@{updateProvider(provider.id)}">
-<p>
-  <div>廠商名稱</div>
-  <div>
-    <input type="text" name="name" value="${provider.name}">
+  <div class="form-group">
+    <label>廠商名稱</label>
+    <input type="text" name="name" class="form-control" value="${provider.name}">
   </div>
-</p>
-<p>
-  <div>電話號碼</div>
-  <div>
-    <input type="text" name="phone" value="${provider.phone}">
+  <div class="form-group">
+    <label>電話號碼</label>
+    <input type="text" name="phone" class="form-control" value="${provider.phone}">
   </div>
-</p>
-<p>
-  <div>地址</div>
-  <div>
-    <input type="text" name="address" value="${provider.address}">
+  <div class="form-group">
+    <label>地址</label>
+    <input type="text" name="address" class="form-control" value="${provider.address}">
   </div>
-</p>
-<p>
-  <table>
-    <tr>
-      <th>刪除</th>
-      <th align="left">餐點名稱</th>
-      <th align="left">價格</th>
-    </tr>
-    #{list provider.products, as:'product'}
-    <tr>
-      <td><input type="checkbox" name="deletes" value="${product.id}"></td>
-      <td><input type="text" name="productNames" value="${product.name}"><input type="hidden" name="productIds" value="${product.id}"></td>
-      <td><input type="text" size="4" name="productPrices" value="${product.price}"></td>
-    </tr>
-    #{/list}
-    <tr>
-      <td>新增</td>
-      <td><input type="text" name="newProductName"></td>
-      <td><input type="text" size="4" name="newProductPrice"></td>
-    </tr>
-  </table>
-</p>
-<p>
-  <div><input type="submit" value="儲存"> <a href="@{index}">取消</a></div>
-</p>
+  <div class="form-group">
+    <table class="table-sm">
+      <tr>
+        <th>刪除</th>
+        <th align="left">餐點名稱</th>
+        <th align="left">價格</th>
+      </tr>
+      #{list provider.products, as:'product'}
+      <tr>
+        <td><input type="checkbox" name="deletes" value="${product.id}"></td>
+        <td><input type="text" name="productNames" class="form-control form-control-sm" value="${product.name}"><input type="hidden" name="productIds" value="${product.id}"></td>
+        <td><input type="text" size="4" name="productPrices" class="form-control form-control-sm" value="${product.price}"></td>
+      </tr>
+      #{/list}
+      <tr>
+        <td></td>
+        <td><input type="text" class="form-control form-control-sm" name="newProductName" placeholder="新增餐點"></td>
+        <td><input type="text" class="form-control form-control-sm" size="4" name="newProductPrice"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit">儲存</button>
+    <a class="btn btn-secondary" href="@{index}">取消</a>
+  </div>
 </form>

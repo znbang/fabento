@@ -23,7 +23,7 @@
   <td style="padding-right: 1em">${item.product}</td>
   <td style="padding-right: 1em; text-align: right;">$${item.price}</td>
   <td>
-    <select name="orders[${item.menuItemId}]">
+    <select name="orders[${item.menuItemId}]" class="form-control form-control-sm">
       %{for (i in 0..10) {}%
       <option ${i == item.quantity ? 'selected=\"selected\"' : ''}>${i}</option>
       %{}}%
@@ -33,7 +33,7 @@
 #{/list}
 <tr>
   <td colspan="4" align="right">
-    <input type="submit" value="確定">
+    <button type="submit" class="btn btn-primary">確定</button>
   </td>
 </tr>
 </table>

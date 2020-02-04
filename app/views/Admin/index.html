@@ -22,9 +22,9 @@
   </tbody>
 </table>
 
-<form action="@{addAdmin}">
-<p>
-  <div>新增管理者請輸入帳號：</div>
-  <div><input type="text" name="userName"><input type="submit" value="新增"></div> 
-</p>
+<form class="form-inline" action="@{addAdmin}">
+  <div class="form-group">
+    <input class="form-control" type="text" name="userName" placeholder="新增管理者請輸入帳號">
+    <button class="btn btn-primary" type="submit">新增</button>
+  </div>
 </form>
