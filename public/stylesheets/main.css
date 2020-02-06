@@ -4,7 +4,7 @@ html, body {
 }
 
 @media print {
-  body, div, td, th {font-size: 12pt; background: white;}
+  body, div, td, th {font-size: 9pt; background: white;}
   .navbar { display: none; }
 }
 
